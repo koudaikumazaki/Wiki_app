@@ -6,6 +6,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 RUN apt-get update -qq && apt-get install -y yarn
 RUN apt-get install -y nodejs npm && npm install n -g && n 12.13.0
 RUN apt-get install -y vim
+RUN apt -y install libidn11-dev
 
 RUN mkdir /myapp
 WORKDIR /myapp

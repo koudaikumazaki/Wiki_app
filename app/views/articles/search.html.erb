@@ -1,0 +1,17 @@
+<h2>検索結果</h2>
+
+<%= form_with(url: search_path, value: params[:keyword], :method => 'get') do |f| %>
+  <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください' %>
+  <%= f.submit '検索' %>
+<% end %>
+
+<div class="w-11/12 mx-auto">
+  <div class="my-10">
+    <a href=<%= @page.fullurl %>>Wikipediaへ</a>
+  </div>
+  <div class="my-10">
+    <h4 class="text-2xl my-5">本文</h4>
+    <p><%= @sanitize_text %></p>
+  </div>
+</div>
+

@@ -1,0 +1,6 @@
+<div>Home</div>
+
+<%= form_with(url: search_path, value: params[:keyword], :method => 'get') do |f| %>
+  <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください' %>
+  <%= f.submit '検索' %>
+<% end %>
