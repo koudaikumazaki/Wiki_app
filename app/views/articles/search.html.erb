@@ -1,17 +1,55 @@
-<h2>検索結果</h2>
-
-<%= form_with(url: search_path, value: params[:keyword], :method => 'get') do |f| %>
-  <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください' %>
-  <%= f.submit '検索' %>
+<% if @article.errors.any? %>
+  <div>
+    <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
+<h2 class="text-center text-2xl my-10">検索結果</h2>
+
 <div class="w-11/12 mx-auto">
-  <div class="my-10">
-    <a href=<%= @page.fullurl %>>Wikipediaへ</a>
+  <%= form_with(url: search_path, value: params[:keyword], :method => 'get', class: 'text-center') do |f| %>
+    <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください', value: params[:keyword] %>
+    <%= f.submit '検索' %>
+  <% end %>
+
+  <div>
+    <div class="my-10">
+      <a class="underline" href=<%= @page.fullurl %>>Wikipediaの「<%= @page.title %>」ページへ</a>
+    </div>
   </div>
-  <div class="my-10">
-    <h4 class="text-2xl my-5">本文</h4>
+
+  <div>
+    <h4 class="text-2xl my-5"><%= @page.title %></h4>
     <p><%= @sanitize_text %></p>
   </div>
 </div>
+
+<h2 class="text-2xl text-center my-10">検索したデータを保存する</h2>
+
+<div>
+  <%= form_with model: @article do |f| %>
+    <div class="my-10 w-11/12 mx-auto">
+      <h4 class="text-2xl my-5">タイトル</h4>
+      <%= f.text_field :title, value: @page.title, class: 'w-full' %>
+    </div>
+    <div class="my-10 w-11/12 mx-auto">
+      <h4 class="text-2xl my-5">URL</h4>
+      <%= f.text_field :url, value: @page.fullurl, class: 'w-full' %>
+    </div>
+    <div class="my-10 w-11/12 mx-auto">
+      <h4 class="text-2xl my-5">本文</h4>
+      <%= f.text_area :content, value: @sanitize_text, class: "h-96 w-full" %>
+    </div>
+    <div class="my-10 w-11/12 mx-auto">
+      <%= f.submit '本文を保存する', class: 'w-full' %>
+    </div>
+  <% end %>
+</div>
+
+
+
 
