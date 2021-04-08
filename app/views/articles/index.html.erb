@@ -1,10 +1,15 @@
-<div>Home</div>
+<h1 class="text-center text-2xl my-10">保存した記事一覧</h1>
 
-<%= form_with(url: search_path, value: params[:keyword], :method => 'get') do |f| %>
+<%= form_with(url: search_path, value: params[:keyword], :method => 'get', class: 'text-center') do |f| %>
   <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください' %>
   <%= f.submit '検索' %>
 <% end %>
 
 <% @articles.each do |article| %>
-  <%= article.title %>
+  <div class="my-5 w-11/12 mx-auto">
+    <%= link_to article.title, article_path(article.id) %>
+    <a class="underline" href=<%= article.url %>>Wikipediaの「<%= article.title %>」ページへ</a>
+    <%= link_to "編集", edit_article_path(article.id) %>
+    <%= link_to "削除", article, data: { confirm: '本当に削除してもよろしいですか？' }, method: :delete %>
+  </div>
 <% end %>
