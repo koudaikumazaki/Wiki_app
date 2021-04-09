@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
         @text = WikiCloth::Parser.new(data: @page.text).to_html
         @sanitize_text = Sanitize.clean(@text)
       else
-        redirect_to root_path, alert: '入力したワードは見つかりませんでした。'
+        redirect_to root_path, alert: '該当する記事は見つかりませんでした。'
       end
     else
       redirect_to root_path, alert: 'フォームが空欄です。'
