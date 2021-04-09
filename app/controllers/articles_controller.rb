@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to root_path, notice: '記事を保存しました。'
+      redirect_to articles_path, notice: '記事を保存しました。'
     else
       redirect_back fallback_location: { action: 'search' }, alert: '記事の保存に失敗しました。'
     end
@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.update(article_params)
     if @article.save
-      redirect_to root_path, notice: '記事を更新しました。'
+      redirect_to article_path(params[:id]), notice: '記事を更新しました。'
     else
       redirect_back fallback_location: { action: 'show' }, alert: '記事の更新に失敗しました。'
     end
@@ -50,7 +50,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.delete
     flash[:notice] = "#{@article.title}の記事を削除しました。"
-    redirect_to root_path
+    redirect_to articles_path
   end
 
   private

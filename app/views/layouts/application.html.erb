@@ -11,10 +11,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p class="text-center"><%= notice %></p>
-    <p class="text-center"><%= alert %></p>
-    <%= link_to "トップページ", root_path, class: 'my-10' %>
+  <body class="bg-gray-100 font-sans font-bold min-h-screen pb-20">
+    <%= render 'layouts/header' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
+    <%= render "layouts/footer" %>
   </body>
 </html>

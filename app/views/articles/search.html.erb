@@ -1,10 +1,7 @@
 <h2 class="text-center text-2xl my-10">検索結果</h2>
 
 <div class="w-11/12 mx-auto">
-  <%= form_with(url: search_path, value: params[:keyword], :method => 'get', class: 'text-center') do |f| %>
-    <%= f.text_field :keyword, placeholder: '検索したい言葉を入力してください', value: params[:keyword] %>
-    <%= f.submit '検索' %>
-  <% end %>
+  <%= render "/layouts/search_form" %>
 
   <div>
     <div class="my-10">
@@ -24,18 +21,18 @@
   <%= form_with model: @article do |f| %>
     <div class="my-10 w-11/12 mx-auto">
       <h4 class="text-2xl my-5">タイトル</h4>
-      <%= f.text_field :title, value: @page.title, class: 'w-full' %>
+      <%= f.text_field :title, value: @page.title, class: 'w-full p-3' %>
     </div>
     <div class="my-10 w-11/12 mx-auto">
       <h4 class="text-2xl my-5">URL</h4>
-      <%= f.text_field :url, value: @page.fullurl, class: 'w-full' %>
+      <%= f.text_field :url, value: @page.fullurl, class: 'w-full p-3' %>
     </div>
     <div class="my-10 w-11/12 mx-auto">
       <h4 class="text-2xl my-5">本文</h4>
-      <%= f.text_area :content, value: @sanitize_text, class: "h-96 w-full" %>
+      <%= f.text_area :content, value: @sanitize_text, class: "h-96 w-full p-3" %>
     </div>
     <div class="my-10 w-11/12 mx-auto">
-      <%= f.submit '本文を保存する', class: 'w-full' %>
+      <%= f.submit '本文を保存する', class: 'w-full p-3 bg-gray-500 text-white' %>
     </div>
   <% end %>
 </div>

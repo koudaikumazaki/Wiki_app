@@ -6,6 +6,14 @@ RSpec.describe "Articles", type: :request do
   let(:new_article_params) { attributes_for(:article, title: 'after_update') }
   let(:invalid_article_params) { attributes_for(:article, title: nil) }
 
+  describe 'GET /home' do
+    it '正常にレスポンスを返すこと' do
+      get root_path
+      expect(response).to have_http_status(200)
+      expect(response.body).to include '記事の検索画面'
+    end
+  end
+
   describe 'GET /index' do
     it '正常にレスポンスを返すこと' do
       get articles_path
@@ -50,9 +58,9 @@ RSpec.describe "Articles", type: :request do
           post search_url, params: { article: article_params }
         end.to change(Article, :count).from(1).to(2)
       end
-      it 'トップページにリダイレクトされる' do
+      it '保存した記事一覧画面にリダイレクトされる' do
         post search_url, params: { article: article_params }
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to articles_path
       end
     end
     context 'フォーム値が無効な場合' do
@@ -83,9 +91,9 @@ RSpec.describe "Articles", type: :request do
         article.reload
         expect(article.title).to eq 'after_update'
       end
-      it 'トップページにリダイレクトする' do
+      it '記事の詳細画面にリダイレクトする' do
         patch article_path(article), params: { article: new_article_params }
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to article_path(article)
       end
     end
     context '更新内容が無効な場合' do
@@ -105,9 +113,9 @@ RSpec.describe "Articles", type: :request do
         delete article_path(article)
       end.to change(Article, :count).by(-1)
     end
-    it 'トップページにリダイレクトする' do
+    it '保存した記事一覧画面にリダイレクトする' do
       delete article_path(article)
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to articles_path
     end
   end
 end

@@ -1,0 +1,15 @@
+<header class="flex justify-between px-5 py-5 sticky top-0 bg-gray-500 text-white">
+  <div>
+    <%= link_to "管理画面", root_path, class: 'text-2xl' %>
+  </div>
+  <nav>
+    <ul class="flex justify-end space-x-8 leading-9">
+      <li>
+        <%= link_to "記事の検索画面", root_path %>
+      </li>
+      <li>
+        <%= link_to "保存した記事一覧", articles_path %>
+      </li>
+    </ul>
+  </nav>
+</header>

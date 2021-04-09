@@ -1,17 +1,17 @@
 <h2 class="text-center text-2xl my-10"><%= @article.title %></h2>
 
-<div class="text-center">
-  <%= link_to "編集", edit_article_path(@article.id) %>
-  <%= link_to "削除", @article, data: { confirm: '本当に削除してもよろしいですか？' }, method: :delete %>
+<div class="text-center text-xl">
+  <%= link_to "編集", edit_article_path(@article.id), class: 'px-5' %>
+  <%= link_to "削除", @article, data: { confirm: '本当に削除してもよろしいですか？' }, method: :delete, class: 'px-5' %>
 </div>
 
 <ul class="w-11/12 mx-auto">
   <div class="my-10">
-    <p>URL</p>
+    <p class="text-2xl">URL</p>
     <li class="my-5"><a class="underline" href=<%= @article.url %>><%= @article.url %></a></li>
   </div>
   <div class="my-10">
-    <p>本文</p>
+    <p class="text-2xl">本文</p>
     <li class="my-5"><%= @article.content %></li>
   </div>
 </ul>
