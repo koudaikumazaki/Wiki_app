@@ -45,5 +45,6 @@ module Myapp
         controller_specs: false,
         routing_specs: false
     end
+    config.hosts.clear
   end
 end
