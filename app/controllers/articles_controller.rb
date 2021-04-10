@@ -6,17 +6,14 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    if params[:keyword] != ''
-      @page = Wikipedia.find(params[:keyword])
-      if !@page.text.nil?
-        @text = WikiCloth::Parser.new(data: @page.text).to_html
-        @sanitize_text = Sanitize.clean(@text)
-      else
-        redirect_to root_path, alert: '該当する記事は見つかりませんでした。'
-      end
+    @page = WikipediaSearch.result(params[:keyword])
+    if !@page.text.nil?
+      @text = WikiCloth::Parser.new(data: @page.text).to_html
+      @sanitize_text = Sanitize.clean(@text)
     else
-      redirect_to root_path, alert: 'フォームが空欄です。'
+      redirect_to root_path, alert: '該当する記事は見つかりませんでした。'
     end
+
     @article = Article.new
   end
 
