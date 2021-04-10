@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  # before_action :search, only: [:create]
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
     @articles = Article.all
@@ -27,15 +27,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
     @article.update(article_params)
     if @article.save
       redirect_to article_path(params[:id]), notice: '記事を更新しました。'
@@ -45,7 +42,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.delete
     flash[:notice] = "#{@article.title}の記事を削除しました。"
     redirect_to articles_path
@@ -55,5 +51,9 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :url, :content)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
   end
 end
