@@ -34,8 +34,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    @article.update(article_params)
-    if @article.save
+    if @article.update(article_params)
       redirect_to article_path(params[:id]), notice: '記事を更新しました。'
     else
       redirect_back fallback_location: { action: 'show' }, alert: '記事の更新に失敗しました。'
