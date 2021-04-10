@@ -2,6 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
+  # before_action :new_article, only: %i[search create]
 
   def index
     @articles = Article.all
@@ -56,4 +57,9 @@ class ArticlesController < ApplicationController
   def set_article
     @article = Article.find(params[:id])
   end
+
+  # def new_article
+  #   @article = Article.new -> 投稿が失敗して、リダイレクトされました。
+  #   @article = Article.new(article_params) -> param is missing or the value is empty: articleというエラーが出ました。
+  # end
 end
