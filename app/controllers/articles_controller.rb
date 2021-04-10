@@ -1,10 +1,11 @@
 class ArticlesController < ApplicationController
+  # before_action :search, only: [:create]
+
   def index
     @articles = Article.all
   end
 
   def search
-    require 'wikipedia'
     if params[:keyword] != ''
       @page = Wikipedia.find(params[:keyword])
       if !@page.text.nil?
