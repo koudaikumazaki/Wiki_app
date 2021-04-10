@@ -8,40 +8,17 @@ RSpec.describe Article, type: :model do
   end
 
   describe 'title関連のバリデーション' do
-    it 'titleが存在しない時、無効な状態であること' do
-      article.title = nil
-      expect(article).to be_invalid
-    end
-    it 'titleが51文字以上の時、無効な状態であること' do
-      article.title = 'a' * 51
-      expect(article).to be_invalid
-    end
-    it 'titleが50文字以下の時、有効な状態であること' do
-      article.title = 'a' * 50
-      expect(article).to be_valid
-    end
+    it { should validate_length_of(:title).is_at_most(50) }
+    it { should validate_presence_of(:title) }
   end
 
   describe 'url関連のバリデーション' do
-    it 'urlが存在しない時、無効な状態であること' do
-      article.url = nil
-      expect(article).to be_invalid
-    end
-    it 'urlが101文字以上の時、無効な状態であること' do
-      article.url = "https://#{'a' * 89}.com"
-      expect(article).to be_invalid
-    end
-    it 'urlが100文字以下の時、有効な状態であること' do
-      article.url = "https://#{'a' * 88}.com"
-      expect(article).to be_valid
-    end
+    it { should validate_length_of(:url).is_at_most(100) }
+    it { should validate_presence_of(:url) }
     it { should allow_value('https://foo.com').for(:url) }
   end
 
   describe 'content関連のバリデーション' do
-    it 'titleが存在しない時、無効な状態であること' do
-      article.content = nil
-      expect(article).to be_invalid
-    end
+    it { should validate_presence_of(:content) }
   end
 end
