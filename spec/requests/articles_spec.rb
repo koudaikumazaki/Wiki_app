@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Articles", type: :request do
+RSpec.describe 'Articles', type: :request do
   let!(:article) { create(:article) }
   let(:article_params) { attributes_for(:article) }
   let(:new_article_params) { attributes_for(:article, title: 'after_update') }
@@ -26,7 +28,7 @@ RSpec.describe "Articles", type: :request do
     it '正常にレスポンスを返すこと' do
       get article_path(article)
       expect(response).to have_http_status(200)
-      expect(response.body).to include "#{article.title}"
+      expect(response.body).to include article.title.to_s
     end
   end
 
