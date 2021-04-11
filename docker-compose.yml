@@ -6,20 +6,19 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
     ports:
-      - "3306:3306"
+      - "3311:3306"
     volumes:
       - ./tmp/db:/var/lib/mysql
 
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true
     tty: true
     volumes:
       - .:/myapp
+    stdin_open: true
     ports:
-      - "3000:3000"
+      - "3004:3000"
     depends_on:
       - db
-
-  

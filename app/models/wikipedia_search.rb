@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-class WikipediaSearch < ApplicationRecord
-  def self.result(keyword)
+class WikipediaSearch
+  include ActiveModel::Model
+
+  attr_accessor :keyword
+
+  def result
     if keyword != ''
       Wikipedia.find(keyword.to_s)
     else
