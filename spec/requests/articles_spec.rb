@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Articles', type: :request do
-  let!(:article) { create(:article) }
-  let(:article_params) { attributes_for(:article) }
   let(:new_article_params) { attributes_for(:article, title: 'after_update') }
   let(:invalid_article_params) { attributes_for(:article, title: nil) }
 
@@ -25,6 +23,7 @@ RSpec.describe 'Articles', type: :request do
   end
 
   describe 'GET /show' do
+    let(:article) { create(:article) }
     it '正常にレスポンスを返すこと' do
       get article_path(article)
       expect(response).to have_http_status(200)
@@ -54,11 +53,13 @@ RSpec.describe 'Articles', type: :request do
   end
 
   describe 'POST /create' do
+    let(:article) { create(:article) }
+    let(:article_params) { attributes_for(:article) }
     context 'フォーム値が有効な場合' do
       it '投稿が成功する' do
         expect do
           post search_url, params: { article: article_params }
-        end.to change(Article, :count).from(1).to(2)
+        end.to change(Article, :count).by(1)
       end
       it '保存した記事一覧画面にリダイレクトされる' do
         post search_url, params: { article: article_params }
@@ -79,6 +80,7 @@ RSpec.describe 'Articles', type: :request do
   end
 
   describe 'GET /edit' do
+    let!(:article) { create(:article) }
     it '正常にレスポンスを返すこと' do
       get edit_article_path(article)
       expect(response).to have_http_status(200)
@@ -87,6 +89,7 @@ RSpec.describe 'Articles', type: :request do
   end
 
   describe 'PATCH /update' do
+    let!(:article) { create(:article) }
     context '更新内容が有効な場合' do
       it '更新が成功する' do
         patch article_path(article), params: { article: new_article_params }
@@ -110,6 +113,7 @@ RSpec.describe 'Articles', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    let!(:article) { create(:article) }
     it '記事の削除に成功する' do
       expect do
         delete article_path(article)
