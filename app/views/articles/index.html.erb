@@ -1,0 +1,22 @@
+<h1 class="text-center text-2xl my-10">保存した記事一覧</h1>
+
+<table class="w-11/12 text-center mx-auto bg-white">
+  <thead class="bg-gray-500 text-white">
+    <tr>
+      <th>記事名</th>
+      <th>Wikipediaへのリンク</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td class="py-3"><%= link_to article.title, article_path(article.id) %></td>
+        <td class="py-3"><a class="underline" href=<%= article.url %>>Wikipediaの「<%= article.title %>」ページへ</a></td>
+        <td class="py-3"><%= link_to "編集", edit_article_path(article.id) %></td>
+        <td class="py-3"><%= link_to "削除", article, data: { confirm: '本当に削除してもよろしいですか？' }, method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
